@@ -470,7 +470,12 @@ module DICOM
     #
     def value(tag)
       if exists?(tag)
-        return @tags[tag].value
+        to_return = @tags[tag]
+        if to_return.children?
+          return to_return
+        else
+          to_return.value
+        end
       else
         return nil
       end
